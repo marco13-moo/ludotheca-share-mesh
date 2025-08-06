@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: LENDING-SERVICE
+  #cloud:
+    #loadbalancer:
+      #ribbon:
+        #enabled: false
+  #datasource:
+      #username: sa
+      #password: 1234
+      #url: jdbc:h2:~/testlending #MacOS/Linux only. For windows -> jdbc:h2:file:C:/data/samplelending
+      #driver-class-name: org.h2.Driver
+  #jpa:
+    #show-sql: true
+    #hibernate:
+      #ddl-auto: update
+    #properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    username: root #db credentials
+    password: MysqlPassword1234
+    url: jdbc:mysql://mysqlservice:3306/lendingservice #use localhost for your own DB in MYSQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect #org.hibernate.dialect.MySQL5Dialect #use InnoDB for GCP Cloud SQL
+  #h2:
+    #console:
+      #enabled: true
+      #path: /h2-ui #https://bezkoder.com/spring-boot-jpa-h2-example/ #cant use gateway here /h2-console is default
+server:
+  port: 8383
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #this is for the actuator health points

@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: MEMBER-SERVICE
+  #cloud:
+    #loadbalancer:
+      #ribbon:
+        #enabled: false #please note Ribbon is now deprecated. Using spring cloud loadbalancer. Round-Robin Algorithm
+  #datasource:
+    #username: sa
+    #password: 1234
+    #url: jdbc:h2:~/testmember #MacOS/Linux only. For windows -> jdbc:h2:file:C:/data/samplemember
+    #driver-class-name: org.h2.Driver
+    #jpa:
+      #show-sql: true
+      #hibernate:
+        #ddl-auto: update
+      #properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    username: root #db credentials
+    password: MysqlPassword1234
+    url: jdbc:mysql://mysqlservice:3306/memberservice #use localhost for your own DB in MYSQL
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect #org.hibernate.dialect.MySQL5Dialect #use InnoDB for GCP Cloud SQL
+  #h2:
+    #console: #use MYSQL server for true microservices, H2 just allows you to get started/demo quickly
+      #enabled: true
+      #path: /h2-ui #https://bezkoder.com/spring-boot-jpa-h2-example/ #cant use gateway here /h2-console is default
+server:
+  port: 8282
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #used for Actuator to give health metrics

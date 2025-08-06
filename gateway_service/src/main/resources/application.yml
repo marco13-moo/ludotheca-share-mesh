@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+  cloud:
+    gateway:
+      routes: #routing configuration for Spring Cloud Gateway
+        - id: lending-service
+          uri: http://LENDING-SERVICE:8383 #we have lb in front of the service domain as this is to signify Spring Cloud Loadbalancer
+          predicates:
+            - Path=/loan/** #all endpoints after loan will be routed through as lending service
+        - id: member-service
+          uri: http://MEMBER-SERVICE:8282
+          predicates:
+            - Path=/member/**
+        - id: book-service
+          uri: http://BOOK-SERVICE:8181
+          predicates:
+            - Path=/book/**
+      discovery:
+        locator:
+          enabled: false
+server:
+  port: 8484 #one may change the port if this is closed
