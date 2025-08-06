@@ -138,9 +138,9 @@ kubectl rollout undo deployment/<deployment-name>
 ```
 
 🎓 Educational Value
-Teaches modular decomposition and domain-driven design.
-SOLID principles applied across independently deployable services.
-Architecture showcases microservices trade-offs: complexity vs scalability.
-Enables experimentation with real cloud-native tools: Spring Boot, Kubernetes, GCP.
+- **Teaches modular decomposition and domain-driven design.
+- **SOLID principles applied across independently deployable services.
+- **Architecture showcases microservices trade-offs: complexity vs scalability.
+- **Enables experimentation with real cloud-native tools: Spring Boot, Kubernetes, GCP.
 
 
