@@ -1,0 +1,35 @@
+apiVersion: apps/v1 #extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-service #
+spec:
+  replicas: 1
+  selector: #https://stackoverflow.com/questions/60126299/kubectl-validationerrordeployment-spec-missing-required-field-selector-in-i
+    matchLabels: #
+      app: gateway-service #
+  template:
+    metadata:
+      labels:
+        app: gateway-service
+    spec:
+      containers:
+        - name: gateway-service
+          image: 'gcr.io/dissertationprojectspringboot/gateway-service-kubesrnew:v1'
+          ports:
+            - containerPort: 8484 #https://stackoverflow.com/questions/57594228/spring-cloud-kubernetes-spring-cloud-gateway-unable-to-find-instance-for-k8s
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+  labels:
+    name: gateway-service
+spec:
+  ports:
+    - port: 8484
+      targetPort: 8484
+      protocol: TCP
+  selector:
+    app: gateway-service
+  type: LoadBalancer
