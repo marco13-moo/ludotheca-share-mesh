@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: lending-service
-          image: "gcr.io/dissertationprojectspringboot/lending-service-kubesrnew:v1"
+          image: "gcr.io/ludothecasharemesh/lending-service-kubesrnew:v1"
           env:
             - name: "PORT"
               value: "8383"
