@@ -1,0 +1,36 @@
+apiVersion: apps/v1 #extensions/v1beta1
+kind: Deployment
+metadata:
+  name: lending-service #
+spec:
+  replicas: 1
+  selector: #https://stackoverflow.com/questions/60126299/kubectl-validationerrordeployment-spec-missing-required-field-selector-in-i
+    matchLabels: #
+      app: lending-service #
+  template:
+    metadata:
+      labels:
+        app: lending-service
+    spec:
+      containers:
+        - name: lending-service
+          image: "gcr.io/ludothecasharemesh/lending-service-kubesrnew:v1"
+          env:
+            - name: "PORT"
+              value: "8383"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lending-service
+  labels:
+    name: lending-service
+spec:
+  ports:
+    - port: 8383
+      targetPort: 8383
+      protocol: TCP
+  selector:
+    app: lending-service
+  type: NodePort

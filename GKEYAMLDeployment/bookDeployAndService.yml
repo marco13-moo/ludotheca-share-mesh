@@ -1,0 +1,36 @@
+apiVersion: apps/v1 #extensions/v1beta1
+kind: Deployment
+metadata:
+  name: book-service #
+spec:
+  replicas: 1
+  selector: #https://stackoverflow.com/questions/60126299/kubectl-validationerrordeployment-spec-missing-required-field-selector-in-i
+    matchLabels: #
+      app: book-service #
+  template:
+    metadata:
+      labels:
+        app: book-service
+    spec:
+      containers:
+        - name: book-service
+          image: "gcr.io/ludothecasharemesh/book-service-kubesrnew:v1"
+          env:
+            - name: "PORT"
+              value: "8181"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-service
+  labels:
+    name: book-service
+spec:
+  ports:
+    - port: 8181
+      targetPort: 8181
+      protocol: TCP
+  selector:
+    app: book-service
+  type: NodePort
