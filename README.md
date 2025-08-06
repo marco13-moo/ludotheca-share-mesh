@@ -44,52 +44,62 @@ This project demonstrates how microservices can be used to build scalable, maint
 ```bash
 git clone [<URL_TO_kubernetes-gke-configs>](https://github.com/marco13-moo/ludotheca-share-mesh)
 cd kubernetes-gke-configs/FinalisedSCRIPTS
-2. Clone the Microservices from GitLab
+```
+### 2. Clone the Microservices from GitLab
+
+```bash
 cp gitlabGKESRClone.sh /your/microservices-directory
 cd /your/microservices-directory
 chmod +x gitlabGKESRClone.sh
 ./gitlabGKESRClone.sh
-3. Configure Application Properties
+```
+### 3. Configure Application Properties
 Option 1: Use MySQL (Recommended)
-In each microservice's application.yml, replace all instances of localhost with mysqlservice. See ApplicationPropertiesFile/ in kubernetes-gke-configs for examples.
+In each microservice's application.yml, replace all instances of localhost with mysqlservice. 
+See ApplicationPropertiesFile/ in kubernetes-gke-configs for examples.
 
 Note: Table creation is handled automatically by Spring JPA.
 
 Option 2: Use In-Memory H2 DB (For Testing Only)
 In each microservice's application.yml:
-
 Comment out all MySQL config from spring.datasource to hibernate
-
 Uncomment all H2-related config
-
 All data will be lost upon termination.
 
-4. Remove Eureka References
+### 4. Remove Eureka References
 Ensure there is no mention of Eureka in any application.yml file, including the API Gateway.
 
-5. Copy Deployment and Build Files
+### 5. Copy Deployment and Build Files
 From kubernetes-gke-configs, copy the following into your microservices directory:
+```bash
 cp FinalisedSCRIPTS/buildDockerImageGCPKubernetesSR.sh .
 cp FinalisedKubeSRYamlGKE/bookDeployAndService.yml .
 cp FinalisedKubeSRYamlGKE/gatewayDeployAndService.yml .
 cp FinalisedKubeSRYamlGKE/mysqlservice.yml .
 cp FinalisedKubeSRYamlGKE/memberDeployAndService.yml .
 cp FinalisedKubeSRYamlGKE/loanDeployAndService.yml .
+```
 🧳 Upload Microservices Directory to GCP
 From your local machine:
+```bash
 scp -r /your/microservices-directory <your-gcp-cloud-shell-instance>
+```
 🐳 Build Docker Images on GCP
 Once in your Cloud Shell:
+```bash
 chmod +x buildDockerImageGCPKubernetesSR.sh
 ./buildDockerImageGCPKubernetesSR.sh <version_number>
+```
 Ensure the correct image versions are reflected in the deployment YAMLs.
 
 ☁️ Create and Connect to a GKE Cluster
 Use the GCP Console to create a GKE cluster with default settings.
 
 Once ready:
+```bash
 chmod +x deployFinalisedKubeSRYamlGKE.sh
 ./deployFinalisedKubeSRYamlGKE.sh
+```
 🌐 Interacting with Services
 You can now access your services through the external IP of your GKE cluster.
 
@@ -114,17 +124,18 @@ kubectl scale deployment <deployment-name> --replicas=3
 Follow Google’s guide for container upgrades:
 https://codelabs.developers.google.com/codelabs/cloud-springboot-kubernetes#9
 
-bash
-Copy
-Edit
+```bash
 ./mvnw -DskipTests package \
   com.google.cloud.tools:jib-maven-plugin:build \
   -Dimage=gcr.io/$GOOGLE_CLOUD_PROJECT/image-name:v2
 
 kubectl set image deployment/<deployment-name> \
   <container-name>=gcr.io/$GOOGLE_CLOUD_PROJECT/image-name:v2
+```
 ↩️ Rolling Back a Deployment
+```bash
 kubectl rollout undo deployment/<deployment-name>
+```
 
 🎓 Educational Value
 Teaches modular decomposition and domain-driven design.
