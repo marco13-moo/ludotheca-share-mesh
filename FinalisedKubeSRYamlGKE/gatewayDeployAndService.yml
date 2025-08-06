@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: gateway-service
-          image: 'gcr.io/dissertationprojectspringboot/gateway-service-kubesrnew:v1'
+          image: 'gcr.io/ludothecasharemesh/gateway-service-kubesrnew:v1'
           ports:
             - containerPort: 8484 #https://stackoverflow.com/questions/57594228/spring-cloud-kubernetes-spring-cloud-gateway-unable-to-find-instance-for-k8s
 
