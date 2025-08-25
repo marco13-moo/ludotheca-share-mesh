@@ -10,6 +10,8 @@ A resource sharing system implemented as a book lending platform using microserv
 
 This project demonstrates how microservices can be used to build scalable, maintainable cloud-native applications. It is based on a reusable resource-sharing model and was designed for educational, architectural, and deployment demonstration purposes.
 
+Further analysis of this project can be found at: https://architectural-patterns-in-microservices.hashnode.dev/
+
 ---
 
 ## ⚙️ Key Features
